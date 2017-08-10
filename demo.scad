@@ -289,26 +289,35 @@ module slide6() {
     space_group_grid();
 }
 
-module test() {
-    hexagonal = cell2_hexagonal(30);
-    wallpaper(wg_p3, hexagonal, "p3");
-//    unit_cell(wg_p3,hexagonal)
-//    *character();
-//
-//    *unit_cell_box(hexagonal);
-//
-//    %cube([1,1,1]);
-//
-//    ortho = orthomatrix(hexagonal);
-//    deortho = deorthomatrix(hexagonal);
-//    echo(ortho*deortho);
-//
-//    multmatrix(wg_p3[1]*deortho)
-//    character();
+module diamond() {
+    $fs=.1;
+    cell = cell3_cubic(35.23);
+    
+    regular_lattice([2,2,2],cell,true) {
+        unit_cell_box(cell);
+        unit_cell(sg_Fd_3m,cell) {
+            color([.5,.5,.5])
+            sphere(r=7/2);
+
+            color([1,1,1])
+            line([0,0,0],[35.23/4,35.23/4,35.23/4]);
+        }
+    }
+}
+
+module protein() {
+    cell = cell3_orthorhombic(56.080,   65.760,   70.510);
+    regular_lattice([2,1,1],cell,true) {
+        unit_cell_box(cell);
+        unit_cell(sg_P212121,cell) {
+            color([.5,.5,1])
+            import("doc/1i37_surf.stl");
+        }
+    }
 
 }
 
-slide = 6;
+slide = 4;
 
 if(slide == 0) slide1a();
 else if(slide == 1) slide1b();
@@ -322,4 +331,5 @@ else if(slide == 8) slide8();
 else if(slide == 9) slide9();
 else if(slide == 10) slide10();
 
-//test();
+//diamond();
+//protein();

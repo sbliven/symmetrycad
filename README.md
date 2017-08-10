@@ -7,7 +7,10 @@ SymmetryCAD is an [OpenSCAD](http://www.openscad.org) library for all kinds of g
 
 ## Gallery
 
-If you use SymmetryCAD, leave a comment on [github](https://github.com/sbliven/symmetrycad/issues) or [thingiverse](http://www.thingiverse.com/spencer) to feature it here!
+![Diamond](doc/demo_diamond.png) Diamond molecule| ![Androgen Receptor](doc/demo_protein.png) Crystal of the androgen receptor protein (PDB:1i37)
+--- | ---
+
+If you use SymmetryCAD, leave a comment on [github](https://github.com/sbliven/symmetrycad/issues) or [thingiverse](http://www.thingiverse.com/spencer) to feature it in the gallery!
 
 ## Installation
 
@@ -25,15 +28,16 @@ To get started, simply include the following line in your .scad file:
 include <SymmetryCAD/SymmetryCAD.scad>
 ```
 
+Alternately, individual files can be specified with `include`/`use` if the whole library is not needed.
+
 ## Tutorial
 
 The main principle of symmetry is to break down your design into the smallest possible unit and then to use *symmetry operators* to copy that design multiple times to create the full model. The minimal unit is called the *asymmetric unit*. For instance, to make a snowflake one can create a single branch and then use the hexagonal symmetry of snowflakes to fill in the rest:
 
-![Snowflake with C6v symmetry](doc/fig1ab.png)
-**Figure 1** *The (left) asymmetric unit and (right) complete snowflake. It has D6h (prismatic) symmetry.*
+![Snowflake with C6v symmetry](doc/demo_fig1ab.png)
+_**Figure 1** The (left) asymmetric unit and (right) complete snowflake. It has D6h (prismatic) symmetry._
 
 ```
-include <SymmetryCAD/SymmetryCAD.scad>
 unit_cell(pg_dnh(6),cell0_point()) {
     snowflake_branch(); // see demo.scad for definition
 }
@@ -44,7 +48,7 @@ To apply symmetry operations, use the `unit_cell(symmetry,cellparams)` function.
 Here are all the 3D point groups supported by SymmetryCAD:
 
 ![3D axial point groups](doc/demo_fig2.png)
-**Figure 2** *All 7 axial point groups.*
+_**Figure 2** All 7 axial point groups._
 
 ### Crystals and tessellations
 
@@ -83,7 +87,6 @@ After constructing the unit cell, expand it to the full lattice using one of the
 
 ![Select space groups](doc/demo_fig6.png)
 **Figure 6** *Examples of some common space groups.*
-
 
 ## See Also
 - [Point groups in three dimensions](https://en.wikipedia.org/wiki/Point_groups_in_three_dimensions#The_seven_infinite_series_of_axial_groups)
