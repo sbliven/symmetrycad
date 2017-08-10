@@ -13,3 +13,5 @@
 use <symmetry.scad>
 use <lattice.scad>
 include <space_groups.scad>
+include <wallpaper_groups.scad>
+include <point_groups.scad>
