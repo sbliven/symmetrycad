@@ -7,6 +7,7 @@
 
 // DEMO
 // Examples and README figures
+// Most slides should be viewed from the top view
 
 
 include <SymmetryCAD/SymmetryCAD.scad>
@@ -35,9 +36,9 @@ module slide1b() {
 }
 
 // All point groups
-module point_group(pg,label="") {
+module axial_point_group(pg,label="") {
     // Generate symmetry
-    cell = cell0_axis(1,1,10,90,90,90);
+    cell = cell0_axis(10);
     unit_cell(pg,cell) {
         color([0,0,1])
         rotate([0,0,30])
@@ -68,28 +69,90 @@ module point_group(pg,label="") {
         sphere(r=1);
     }
 }
+module polyhedral_point_group(pg,label="") {
+    cell = cell0_point();
+    unit_cell(pg,cell) {
+
+        translate([30,10,10])
+        scale([.5,.5,.5])
+        testcube(back=false);            
+    }
+    // Label
+    if(label != undef && label != "") {
+        translate([0,-70,0])
+        rotate([3,0,0]) // Tilt towards camera
+        linear_extrude(1)
+        text(label, size=8, halign="center", valign="center");
+    } else {
+        sphere(r=1);
+    }
+}
 module point_group_grid() {
     xspacing = 110;
-    yspacing = 115;
+    yspacing = 120;
 
-    translate([-1.5*xspacing,0.5*yspacing,0])
-    point_group(pg_cn(6),"cn");
-    translate([-0.5*xspacing,0.5*yspacing,0])
-    point_group(pg_s2n(6),"s2n");
-    translate([ 0.5*xspacing,0.5*yspacing,0])
-    point_group(pg_cnh(6),"cnh");
-    translate([ 1.5*xspacing,0.5*yspacing,0])
-    point_group(pg_cnv(6),"cnv");
+    translate([-1.5*xspacing,1.3*yspacing,0])
+    rotate([-45,0,0])
+    axial_point_group(pg_cn(6),"cn");
+    translate([-0.5*xspacing,1.3*yspacing,0])
+    rotate([-45,0,0])
+    axial_point_group(pg_s2n(6),"s2n");
+    translate([ 0.5*xspacing,1.3*yspacing,0])
+    rotate([-45,0,0])
+    axial_point_group(pg_cnh(6),"cnh");
+    translate([ 1.5*xspacing,1.3*yspacing,0])
+    rotate([-45,0,0])
+    axial_point_group(pg_cnv(6),"cnv");
 
-    translate([-1.5*xspacing,-.5*yspacing,0])
-    point_group(pg_dn(6),"dn");
-    translate([-0.5*xspacing,-.5*yspacing,0])
-    point_group(pg_dnd(6),"dnd");
-    translate([ 0.5*xspacing,-.5*yspacing,0])
-    point_group(pg_dnh(6),"dnh");
+    translate([-1*xspacing, .4*yspacing,0])
+    rotate([-45,0,0])
+    axial_point_group(pg_dn(6),"dn");
+    translate([ 0*xspacing, .4*yspacing,0])
+    rotate([-45,0,0])
+    axial_point_group(pg_dnd(6),"dnd");
+    translate([ 1*xspacing, .4*yspacing,0])
+    rotate([-45,0,0])
+    axial_point_group(pg_dnh(6),"dnh");
+
+    translate([-1*xspacing,-.5*yspacing,0])
+    rotate([-30,0,0]) {
+        tetrahedron_frame(100);
+        polyhedral_point_group(pg_t,"t");
+    }
+    translate([-0*xspacing,-.5*yspacing,0])
+    rotate([-30,0,0]) {
+        tetrahedron_frame(100);
+        polyhedral_point_group(pg_td,"td");
+    }
+    translate([ 1*xspacing,-.5*yspacing,0])
+    rotate([-30,0,0]) {
+        //tetrahedron_frame(40);
+        pyritohedron_frame(100,.3);
+        polyhedral_point_group(pg_th,"th");
+    }
+
+    translate([-1.5*xspacing,-1.5*yspacing,0])
+    rotate([-30,0,0]) {
+        cube_frame(80);
+        polyhedral_point_group(pg_o,"o");
+    }
+    translate([-0.5*xspacing,-1.5*yspacing,0])
+    rotate([-30,0,0]) {
+        cube_frame(80);
+        polyhedral_point_group(pg_oh,"oh");
+    }
+    translate([ 0.5*xspacing,-1.5*yspacing,0])
+    rotate([-30,0,0]) {
+        pyritohedron_frame(90);
+        polyhedral_point_group(pg_i,"i");
+    }
+    translate([ 1.5*xspacing,-1.5*yspacing,0])
+    rotate([-30,0,0]) {
+        pyritohedron_frame(90);
+        polyhedral_point_group(pg_ih,"ih");
+    }
 }
 
-// Should be viewed at 45 degree angle for labels
 module slide2() {
     point_group_grid();
 }
@@ -107,7 +170,7 @@ module wallpaper(wg,cell,label="") {
     intersection() {
         cube([100,100,10],center=true);
         covering_lattice([100,100],cell) {
-            unit_cell_box(cell);
+            unit_cell_frame(cell);
             unit_cell(wg,cell)
             character();
         }
@@ -181,7 +244,7 @@ module slide3() {
     unit_cell(wg,cell)
     character();
     // Box around unit cell
-    unit_cell_box(cell);
+    unit_cell_frame(cell);
 }
 
 
@@ -192,7 +255,7 @@ module slide4() {
 
 //    wallpaper(wg,cell);
     regular_lattice([3,3],cell,center=true) {
-        unit_cell_box(cell);
+        unit_cell_frame(cell);
         unit_cell(wg,cell)
         character();
     }
@@ -252,7 +315,7 @@ module space_group_demo(sg,cell,label="") {
 
 //        covering_lattice(bounds,cell,center=true) {
         regular_lattice([3,3,2],cell,center=true) {
-            unit_cell_box(cell);
+            unit_cell_frame(cell);
             unit_cell(sg, cell) {
                 translate([10,10,10])
                 testcube(r=5, back=false);
@@ -294,7 +357,7 @@ module diamond() {
     cell = cell3_cubic(35.23);
     
     regular_lattice([2,2,2],cell,true) {
-        unit_cell_box(cell);
+        unit_cell_frame(cell);
         unit_cell(sg_Fd_3m,cell) {
             color([.5,.5,.5])
             sphere(r=7/2);
@@ -308,7 +371,7 @@ module diamond() {
 module protein() {
     cell = cell3_orthorhombic(56.080,   65.760,   70.510);
     regular_lattice([2,1,1],cell,true) {
-        unit_cell_box(cell);
+        unit_cell_frame(cell);
         unit_cell(sg_P212121,cell) {
             color([.5,.5,1])
             import("doc/1i37_surf.stl");
@@ -317,7 +380,7 @@ module protein() {
 
 }
 
-slide = 4;
+slide = 2;
 
 if(slide == 0) slide1a();
 else if(slide == 1) slide1b();
@@ -326,10 +389,10 @@ else if(slide == 3) slide3();
 else if(slide == 4) slide4();
 else if(slide == 5) slide5();
 else if(slide == 6) slide6();
-else if(slide == 7) slide7();
-else if(slide == 8) slide8();
-else if(slide == 9) slide9();
-else if(slide == 10) slide10();
+//else if(slide == 7) slide7();
+//else if(slide == 8) slide8();
+//else if(slide == 9) slide9();
+//else if(slide == 10) slide10();
 
 //diamond();
 //protein();

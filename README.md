@@ -45,10 +45,10 @@ unit_cell(pg_dnh(6),cell0_point()) {
 
 To apply symmetry operations, use the `unit_cell(symmetry,cellparams)` function. In the case of our snowflake, we know that it should have a 6-fold rotation with mirror planes. Additionally, we are only interested in creating a single snowflake, meaning it should have *point group symmetry*. The correct combination for this is D6h (prismatic) symmetry, whose operators are given in SymmetryCAD by the `pg_dnh(6)` function in `point_groups.scad`. We also pass the `cell0_point()` cell parameters, which can be used for all point groups (more on cell parameters below).
 
-Here are all the 3D point groups supported by SymmetryCAD:
+Here are all the 3D point groups:
 
 ![3D axial point groups](doc/demo_fig2.png)
-_**Figure 2** All 7 axial point groups._
+_**Figure 2** The 7 axial point groups, shown with a 6-fold primary axis, and the 7 polyhedral point groups._
 
 ### Crystals and tessellations
 
@@ -73,7 +73,7 @@ To construct a unit cell one needs to know the symmetry operations (`pg_*`, `wp_
 
 ```
 regular_lattice([3,3],cell,center=true) { // generate lattice
-    unit_cell_box(cell); // draw box
+    unit_cell_frame(cell); // draw box around unit cell
     unit_cell(wg,cell) { // draw unit cell
         character(); // asymmetric unit
     }
@@ -89,7 +89,7 @@ After constructing the unit cell, expand it to the full lattice using one of the
 **Figure 6** *Examples of some common space groups.*
 
 ## See Also
-- [Point groups in three dimensions](https://en.wikipedia.org/wiki/Point_groups_in_three_dimensions#The_seven_infinite_series_of_axial_groups)
+- [Point groups in three dimensions](https://en.wikipedia.org/wiki/Point_groups_in_three_dimensions)
 - [Wallpaper groups](https://en.wikipedia.org/wiki/List_of_planar_symmetry_groups#Wallpaper_groups)
 - The International Union of Crystallography. (2005). International Tables for Crystallography. (T. Hahn, Ed.) (5 ed., Vol. A). Chester, England: Springer
 

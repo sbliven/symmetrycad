@@ -113,16 +113,89 @@ function pg_dnh(n) =
         
 //TODO implement polyhedral point groups
 // chiral tetrahedral symmetry
-pg_t = [identity4()];
+pg_t = 
+    let( r2 =   [[1, 0, 0, 0],
+                 [0,-1, 0, 0],
+                 [0, 0,-1, 0],
+                 [0, 0, 0, 1]], // rotate around x
+         r3 =    [[0, 0, 1, 0],
+                 [1, 0, 0, 0],
+                 [0, 1, 0, 0],
+                 [0, 0, 0, 1]] // 3-fold rotation around (1,1,1)
+         )
+     [ identity4(),
+        r2, r3,
+        r2*r3, r3*r2, r3*r3,
+        r2*r3*r3, r2*r3*r2, r3*r2*r3, r3*r3*r2,
+        r3*r3*r2*r3, r3*r2*r3*r3 ];
+
 // full tetrahedral symmetry
-pg_td = [identity4()];
+pg_td = concat( pg_t,
+    [for(op = pg_t) op * 
+        [[0, 1, 0, 0],
+         [1, 0, 0, 0],
+         [0, 0, 1, 0],
+         [0, 0, 0, 1]] // reflect across x=y
+    ]);
+
 // pyritohedral symmetry
-pg_th = [identity4()];
+pg_th = concat( pg_t,
+    [for(op = pg_t) op * 
+        [[1, 0, 0, 0],
+         [0,-1, 0, 0],
+         [0, 0, 1, 0],
+         [0, 0, 0, 1]] // reflect across xz
+    ]);
+
 // chiral octahedral symmetry
-pg_o = [identity4()];
+pg_o =
+    let( r4 =   [[1, 0, 0, 0],
+                 [0, 0,-1, 0],
+                 [0, 1, 0, 0],
+                 [0, 0, 0, 1]], // rotate 90 around x
+         r3 =    [[0, 0, 1, 0],
+                 [1, 0, 0, 0],
+                 [0, 1, 0, 0],
+                 [0, 0, 0, 1]] // 3-fold rotation around (1,1,1)
+         )
+     [ identity4(),
+        r3, r4,
+        r3*r3, r3*r4, r4*r3, r4*r4,
+        r3*r3*r4, r3*r4*r4, r4*r3*r3, r4*r4*r3, r4*r4*r4,
+        r3*r3*r4*r4, r3*r4*r3*r3, r3*r4*r4*r3, r3*r4*r4*r4, r4*r3*r3*r4, r4*r4*r3*r3,
+        r3*r3*r4*r3*r3, r3*r3*r4*r4*r3, r4*r4*r3*r3*r4, r3*r4*r4*r3*r3, r4*r3*r3*r4*r4,
+        r3*r4*r4*r3*r3*r4,
+        ];
+
 // full octahedral symmetry
-pg_oh = [identity4()];
+pg_oh = concat( pg_o,
+    [for(op = pg_o)  op *
+        [[1, 0, 0, 0],
+         [0,-1, 0, 0],
+         [0, 0, 1, 0],
+         [0, 0, 0, 1]] // reflect across xz
+    ]);
 // chiral icosahedral symmetry
-pg_i = [identity4()];
+pg_i = 
+    let(phi = (1+sqrt(5))/2,
+        f = (5-sqrt(5))/(5+sqrt(5)),
+        g = (3+sqrt(5))/4,
+        op5 = [ [1-f/2,         -phi*sqrt(f)/2, phi*f/2,   0],
+                [phi*sqrt(f)/2, 1-f*(1/2+g),    -g*sqrt(f),0],
+                [phi*f/2,       g*sqrt(f),      1-f*g,     0],
+                [0,0,0,1]])
+    flatten([for(opTh = pg_t)
+        [opTh,
+        op5 * opTh,
+        op5 * op5 * opTh,
+        op5 * op5 * op5 * opTh,
+        op5 * op5 * op5 * op5 * opTh,
+        ]]);
 // full icosahedral symmetry
-pg_ih = [identity4()];
+pg_ih = concat( pg_i,
+    [for(op = pg_i)  op *
+        [[1, 0, 0, 0],
+         [0,-1, 0, 0],
+         [0, 0, 1, 0],
+         [0, 0, 0, 1]] // reflect across xz
+    ]);
