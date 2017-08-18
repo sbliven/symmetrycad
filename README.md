@@ -3,14 +3,14 @@ The OpenSCAD crystallographic toolbox
 
 ## Summary
 
-SymmetryCAD is an [OpenSCAD](http://www.openscad.org) library for all kinds of geometric symmetry operations. It can be used for enforcing mirror or rotational symmetry on your 3D objects, constructing tilings and tessellations, or for building 3D molecular crystals in OpenSCAD. Functions are available for all 17 possible 2D tilings (wallpaper groups) and all 230 possible 3D tilings (space groups).
+SymmetryCAD is an [OpenSCAD](http://www.openscad.org) library for all kinds of geometric symmetry operations. It can be used for enforcing mirror or rotational symmetry on your 3D objects, constructing tilings and tessellations, or for building 3D molecular crystals in OpenSCAD. Functions are available for the 17 possible 2D tilings (wallpaper groups), the 230 possible 3D tilings (space groups), and the 14 non-periodic symmetries (point groups).
 
 ## Gallery
 
 ![Diamond](doc/demo_diamond.png) Diamond molecule| ![Androgen Receptor](doc/demo_protein.png) Crystal of the androgen receptor protein (PDB:1i37)
 --- | ---
 
-If you use SymmetryCAD, leave a comment on [github](https://github.com/sbliven/symmetrycad/issues) or [thingiverse](http://www.thingiverse.com/spencer) to feature it in the gallery!
+If you use SymmetryCAD, leave a comment on [github](https://github.com/sbliven/symmetrycad/issues) or [thingiverse](https://www.thingiverse.com/thing:2489116) to feature it in the gallery!
 
 ## Installation
 
@@ -92,6 +92,8 @@ After constructing the unit cell, expand it to the full lattice using one of the
 - [Point groups in three dimensions](https://en.wikipedia.org/wiki/Point_groups_in_three_dimensions)
 - [Wallpaper groups](https://en.wikipedia.org/wiki/List_of_planar_symmetry_groups#Wallpaper_groups)
 - The International Union of Crystallography. (2005). International Tables for Crystallography. (T. Hahn, Ed.) (5 ed., Vol. A). Chester, England: Springer
+- [Github](https://github.com/sbliven/symmetrycad/issues) for code, bug reports, etc.
+- [Thingiverse](https://www.thingiverse.com/thing:2489116)
 
 ## License
 
