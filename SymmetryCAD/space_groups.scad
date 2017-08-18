@@ -7,8 +7,10 @@
 // SPACE GROUPS
 // This file contains essential information about the crystallographic space groups.
 // For each space group, there is a variable (starting with 'sg_') with all symmetry operators.
-// There may also be a function (starting with 'cell') for specifying cell parameters. The
-// cell functions enforce any constraints on the cell parameters (e.g. fixed angles);
+// There may also be a function (starting with 'cell3') for specifying cell parameters. The
+// cell functions enforce any constraints on the cell parameters (e.g. fixed angles).
+//
+// Space groups follow the conventions of the International Tables of Crystallography.
 
 use <scad-utils/linalg.scad> // for identity4()
 use <matrix_utils.scad>

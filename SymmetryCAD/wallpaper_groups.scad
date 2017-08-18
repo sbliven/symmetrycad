@@ -4,6 +4,13 @@
  * License: LGPL 2.1 or later
  */
 
+
+// WALLPAPER GROUPS
+// This defines the 17 wallpaper groups in 2D. Use the `wg_` variables for the
+// symmetry, plus the matching `cell2_` function for specifying unit cell parameters.
+//
+// Wallpaper groups follow the conventions of the International Tables of Crystallography.
+
 use <scad-utils/linalg.scad> // for identity4()
 use <matrix_utils.scad>
 
