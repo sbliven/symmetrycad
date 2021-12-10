@@ -15,7 +15,7 @@
 		<project.build.targetEncoding>UTF-8</project.build.targetEncoding>
 		<biojava.version>5.0.0-SNAPSHOT</biojava.version>
 		<slf4j.version>1.7.21</slf4j.version>
-		<log4j.version>2.13.2</log4j.version>
+		<log4j.version>2.15.0</log4j.version>
 	</properties>
 	<build>
 		<plugins>
